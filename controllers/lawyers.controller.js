@@ -2,6 +2,7 @@ const Lawyer = require('../models/Lawyer.model');
 const bcrypt = require('bcrypt')
 const { token } = require("morgan");
 const jwt = require('jsonwebtoken')
+const { hash } = require("bcrypt");
 
 module.exports.lawyersController = {
   addLawyers: async(req, res) => {
@@ -13,14 +14,17 @@ module.exports.lawyersController = {
         name,
         surname,
         login,
-        password,
+        password: hash,
         img,
       });
       res.json(lawyer)
     }catch (e) {
-      res.json(e.message)
+      return res.status(400).json({
+      error: "Ошибка при регистрации: " + e.toString()
+      })
     }
   },
+
   getLawyers: async (req, res) => {
     try {
       const lawyers = await Lawyer.find();
@@ -57,19 +61,7 @@ module.exports.lawyersController = {
       res.json(e.message)
     }
   },
-  registerLawyer: async(req, res) => {
-    const { login, password, name, surname } = req.body
-    try {
-      const hash = await bcrypt.hash(password, Number(process.env.BCRYPT_ROUNDS));
 
-      const lawyer = await Lawyer.create({ login, password: hash, name, surname });
-
-      res.json(lawyer)
-    }
-    catch (e) {
-      res.json(e.message)
-    }
-},
   login: async (req, res) => {
     const { login, password } = req.body;
     try{

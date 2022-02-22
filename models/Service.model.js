@@ -17,7 +17,7 @@ const serviceSchema = mongoose.Schema(
     userId: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Lawyer",
-    }
+    },
   },
   { timestamps: true }
 );
