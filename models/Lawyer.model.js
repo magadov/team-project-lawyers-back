@@ -19,6 +19,10 @@ const lawyerSchema = mongoose.Schema({
     patronymic: {
     type: String
   },
+  img: {
+    type: String,
+    default: null
+  },
   services: [
    {
     type: mongoose.SchemaTypes.ObjectId,
