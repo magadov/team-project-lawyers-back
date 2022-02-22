@@ -5,8 +5,8 @@ const upload = require('../middlewares/upload');
 
 const router = Router();
 
-router.post("/", lawyersController.addLawyers);
-router.post("/lawyer", lawyersController.registerLawyer);
+
+router.post("/lawyer", lawyersController.addLawyers);
 router.post("/login", lawyersController.login);
 router.get("/", lawyersController.getLawyers);
 router.get("/services/:id", lawyersController.getLawyerByServices);
