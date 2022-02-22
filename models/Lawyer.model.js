@@ -4,9 +4,13 @@ const lawyerSchema = mongoose.Schema({
 
   login:{
     type: String,
+    required: true,
+    unique: true
   },
   password: {
-    type: String
+    type: String,
+    required: true
+
   },
   name:{
     type: String,
@@ -14,8 +18,10 @@ const lawyerSchema = mongoose.Schema({
   },
     surname: {
     type: String,
-      required: true
+    required: true
+
     },
+
     patronymic: {
     type: String
   },
