@@ -6,7 +6,7 @@ const { hash } = require("bcrypt");
 
 module.exports.lawyersController = {
   addLawyers: async(req, res) => {
-    const {name, surname, login, password} = req.body
+    const {name, surname, login, password, img} = req.body
     try {
       const hash = await bcrypt.hash(password, Number(process.env.BCRYPT_ROUNDS));
 
@@ -15,6 +15,7 @@ module.exports.lawyersController = {
         surname,
         login,
         password: hash
+        img,
       });
       res.json(lawyer)
     }catch (e) {
@@ -41,21 +42,15 @@ module.exports.lawyersController = {
     }
   },
   editLawyers: async (req, res) => {
-      const {name, surname, patronymic, category} = req.body;
-    try{
-      await Lawyer.findByIdAndUpdate(
-        req.params.id,
-        {
-          name,
-          surname,
-          patronymic,
-          category
-        },
-        {new: true},
-      )
-      res.json('Описание успешно изменено')
-    }catch (e) {
-      res.json(e.message)
+    try {
+      console.log(req.body);
+      await Lawyer.findByIdAndUpdate(req.user.id, {
+        $set: { ...req.body },
+      });
+      const user = await Lawyer.findById(req.user.id);
+      res.status(200).json(user);
+    } catch (e) {
+      console.log(e);
     }
   },
   deleteLawyers: async(req, res) => {
@@ -95,7 +90,25 @@ module.exports.lawyersController = {
     catch (e) {
       res.json(e.message)
     }
+  },
+  updateImg: async (req, res) => {
+    try {
+      await Lawyer.findByIdAndUpdate(req.user.id, {
+        img: req.file.path,
+      });
+      res.status(200).json(req.file.path);
+    } catch (e) {
+      res.json(e);
+    }
+  },
+  getOneLawyer: async (req, res) => {
+    try {
+      const id = req.user.id;
 
-
-  }
+      const lawyer = await Lawyer.findById(id);
+      res.json(lawyer);
+    } catch (e) {
+      console.log(e.message);
+    }
+  },
 }
