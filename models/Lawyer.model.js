@@ -10,7 +10,6 @@ const lawyerSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-
   },
   name:{
     type: String,
@@ -19,9 +18,7 @@ const lawyerSchema = mongoose.Schema({
     surname: {
     type: String,
     required: true
-
     },
-
     patronymic: {
     type: String
   },
