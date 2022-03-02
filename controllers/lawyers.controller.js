@@ -14,7 +14,7 @@ module.exports.lawyersController = {
         name,
         surname,
         login,
-        password: hash
+        password: hash,
         img,
       });
       res.json(lawyer)
