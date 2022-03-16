@@ -3,14 +3,15 @@ const jwt = require('jsonwebtoken')
 
 module.exports.servicesController = {
   addServices: async (req, res) => {
-    const { name, price } = req.body;
+    const { name, price, categories } = req.body;
     const { id } = req.user;
 
     try {
       const service = await Service.create({
         name,
         price,
-        userId: id
+        userId: id,
+        categories
       });
       res.json(service)
     } catch (e) {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const { text } = require("express");
 
 const lawyerSchema = mongoose.Schema({
 
@@ -31,6 +32,16 @@ const lawyerSchema = mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'Service',
   }
+  ],
+
+  serv: [
+    {
+      text: String,
+      price: {
+        type: Number,
+        default: 0
+      }
+    }
   ],
   coeff: {
     type: Number
