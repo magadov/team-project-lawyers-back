@@ -20,7 +20,6 @@ const lawyerSchema = mongoose.Schema({
     type: String,
     required: true
     },
-
     patronymic: {
     type: String
   },
