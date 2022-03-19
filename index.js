@@ -9,6 +9,7 @@ const port = process.env.PORT;
 const url =
   "mongodb+srv://usman:Usman1994@cluster0.rlomm.mongodb.net/lawyers?retryWrites=true&w=majority";
 
+
 const app = express();
 
 app.use(express.json());
