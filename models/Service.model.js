@@ -9,6 +9,7 @@ const serviceSchema = mongoose.Schema(
     },
     price: {
       type: Number,
+      required: true,
     },
     categories: {
       type: mongoose.SchemaTypes.ObjectId,

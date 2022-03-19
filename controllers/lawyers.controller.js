@@ -104,11 +104,30 @@ module.exports.lawyersController = {
   getOneLawyer: async (req, res) => {
     try {
       const id = req.user.id;
-
       const lawyer = await Lawyer.findById(id);
       res.json(lawyer);
     } catch (e) {
       console.log(e.message);
     }
   },
+  addServiceInSummary: async (req, res) => {
+    try {
+      const law = await Lawyer.findByIdAndUpdate(req.user.id, {
+        $push: { serv: req.body }
+      }, { new: true })
+       res.status(200).json(law)
+    } catch (e) {
+       res.json(e.message)
+    }
+  },
+  deleteServInSummary: async (req, res) => {
+    try{
+      await Lawyer.findByIdAndUpdate(req.user.id, {
+        $pull: {serv: {_id: req.params.id}}
+      })
+      res.status(200).json("Услуга успешно удалена")
+    }catch (e) {
+      res.json(e.message)
+    }
+  }
 }
