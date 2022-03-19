@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose")
 const { text } = require("express");
 
@@ -19,8 +20,10 @@ const lawyerSchema = mongoose.Schema({
     surname: {
     type: String,
     required: true
+
     },
     patronymic: {
+
     type: String
   },
   img: {
@@ -46,10 +49,11 @@ const lawyerSchema = mongoose.Schema({
   coeff: {
     type: Number
   }
+
   },
-  {timestamps: true}
+  { timestamps: true }
 );
 
-const Lawyer = mongoose.model('Lawyer', lawyerSchema)
+const Lawyer = mongoose.model("Lawyer", lawyerSchema);
 
 module.exports = Lawyer;
