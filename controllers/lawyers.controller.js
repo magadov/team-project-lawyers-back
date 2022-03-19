@@ -122,10 +122,10 @@ module.exports.lawyersController = {
   },
   deleteServInSummary: async (req, res) => {
     try{
-      await Lawyer.findByIdAndUpdate(req.user.id, {
-        $pull: {serv: {_id: req.params.id}}
-      })
-      res.status(200).json("Услуга успешно удалена")
+      const result = await Lawyer.findByIdAndUpdate(req.user.id, {
+        $pull: {serv: {_id: req.params.id},}
+      }, {new: true})
+      res.status(200).json(result)
     }catch (e) {
       res.json(e.message)
     }
