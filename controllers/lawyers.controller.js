@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const { token } = require("morgan");
 const jwt = require('jsonwebtoken')
 const { hash } = require("bcrypt");
+const Service = require("../models/Service.model");
 
 module.exports.lawyersController = {
   addLawyers: async(req, res) => {
@@ -129,5 +130,16 @@ module.exports.lawyersController = {
     }catch (e) {
       res.json(e.message)
     }
-  }
+  },
+  addServicesByCategoriesId: async (req, res) => {
+    try {
+      const serv = await Service.findById(req.params.id)
+      const result = await Lawyer.findByIdAndUpdate(req.user.id, {
+        $push: {services:  serv}
+      }, {new: true})
+      res.status(200).json(result)
+    }catch (e) {
+      res.json(e.message)
+    }
+  },
 }
