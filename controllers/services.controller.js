@@ -1,5 +1,5 @@
 const Service = require("../models/Service.model");
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 module.exports.servicesController = {
   addServices: async (req, res) => {
@@ -11,9 +11,9 @@ module.exports.servicesController = {
         name,
         price,
         userId: id,
-        categories
+        categories,
       });
-      res.json(service)
+      res.json(service);
     } catch (e) {
       res.json(e.message);
     }
@@ -26,45 +26,44 @@ module.exports.servicesController = {
       res.json(e.message);
     }
   },
-  getServicesByCategories: async(req, res) => {
-    try{
-      const services = Service.find({categories: req.params.id})
-      res.json(services)
-    }catch (e) {
-      res.json(e.message)
+  getServicesByCategories: async (req, res) => {
+    try {
+      const services = Service.find({ categories: req.params.id });
+      res.json(services);
+    } catch (e) {
+      res.json(e.message);
     }
   },
   editServices: async (req, res) => {
-    const {name, price, category} = req.body;
+    const { name, price, category } = req.body;
     try {
       await Service.findByIdAndUpdate(
         req.params.id,
         {
           name,
           price,
-          category
+          category,
         },
-        {new: true}
-      )
-      res.json('Услуга успешно изменена')
-    }catch (e) {
-      res.json(e.message)
+        { new: true }
+      );
+      res.json("Услуга успешно изменена");
+    } catch (e) {
+      res.json(e.message);
     }
   },
-  deleteServices: async(req, res) => {
-    const { id } = req.params
+  deleteServices: async (req, res) => {
+    const {id} = req.params;
     try {
       const service = await Service.findById(id);
 
-      if(service.userId.toString() === req.user.id){
+      if (service.userId.toString() === req.user.id) {
         await service.remove();
 
-        return res.json("Услуга удалена")
+        return res.json("Услуга удалена");
       }
-      return res.status(401).json("Ошибка. Нет доступа")
-    }catch (e) {
-
-      return res.status(401).json("Ошибка: " + e.toString())
+      return res.status(401).json("Ошибка. Нет доступа");
+    } catch (e) {
+      return res.status(401).json("Ошибка: " + e.toString());
     }
   }
 };
