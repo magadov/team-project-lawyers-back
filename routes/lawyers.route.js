@@ -16,5 +16,6 @@ router.get('/profile', authMiddleware, lawyersController.getOneLawyer);
 router.patch('/add', authMiddleware, lawyersController.addServiceInSummary);
 router.patch('/service/:id/delete/', authMiddleware, lawyersController.deleteServInSummary);
 router.patch('/service/add/:id', authMiddleware, lawyersController.addServicesByCategoriesId);
+router.delete('/service/delete/:id', authMiddleware, lawyersController.deleteServiceInSummary);
 
 module.exports = router;

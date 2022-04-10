@@ -105,7 +105,7 @@ module.exports.lawyersController = {
   getOneLawyer: async (req, res) => {
     try {
       const id = req.user.id;
-      const lawyer = await Lawyer.findById(id);
+      const lawyer = await Lawyer.findById(id).populate('services')
       res.json(lawyer);
     } catch (e) {
       console.log(e.message);
@@ -115,7 +115,7 @@ module.exports.lawyersController = {
     try {
       const law = await Lawyer.findByIdAndUpdate(req.user.id, {
         $push: { serv: req.body }
-      }, { new: true })
+      }, { new: true }).populate('services')
        res.status(200).json(law)
     } catch (e) {
        res.json(e.message)
@@ -126,17 +126,27 @@ module.exports.lawyersController = {
       const result = await Lawyer.findByIdAndUpdate(req.user.id, {
         $pull: {serv: {_id: req.params.id},}
       }, {new: true})
+      console.log(result);
       res.status(200).json(result)
     }catch (e) {
       res.json(e.message)
     }
   },
+  deleteServiceInSummary: async (req, res) => {
+    try {
+      const result = await Lawyer.findByIdAndUpdate(req.user.id, {
+        $pull: { services: req.params.id }
+      },{new: true}).populate('services')
+      res.status(200).json(result)
+    } catch (e) {
+     res.json(e.message)
+    }
+  },
   addServicesByCategoriesId: async (req, res) => {
     try {
-      const serv = await Service.findById(req.params.id)
       const result = await Lawyer.findByIdAndUpdate(req.user.id, {
-        $push: {services:  serv}
-      }, {new: true})
+        $push: {services:  req.params.id}
+      }, {new: true}).populate('services')
       res.status(200).json(result)
     }catch (e) {
       res.json(e.message)
