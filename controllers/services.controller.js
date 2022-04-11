@@ -2,17 +2,12 @@ const Service = require("../models/Service.model");
 const jwt = require("jsonwebtoken");
 
 module.exports.servicesController = {
-  addServices: async (req, res) => 
+  addServices: async (req, res) => {
     const { name, price, categories} = req.body;
-
-
-    const { id } = req.user;
-
     try {
       const service = await Service.create({
         name,
         price,
-        userId: id,
         categories,
       });
       res.json(service);
