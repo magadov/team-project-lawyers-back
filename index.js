@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const chalk = require("chalk")
 require('dotenv').config()
 const port = process.env.PORT;
+
 const url =
   "mongodb+srv://usman:Usman1994@cluster0.rlomm.mongodb.net/lawyers?retryWrites=true&w=majority";
 
