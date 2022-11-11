@@ -15,10 +15,6 @@ const serviceSchema = mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Category",
     },
-    userId: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "Lawyer",
-    },
   },
   { timestamps: true }
 );
